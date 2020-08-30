@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'layout_generator/styles.css' %}" type="text/css">
+
+    <title>Page Title</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+
+    <script>
+
+    </script>
+
+    <!-- Basado en un supuesto autobus de 5 filas con dos asientos de cada lado del pasillo -->
+    <h1 class="test">PELOTUDO</h1>
+    <div class="container">
+        <button id="1"  onclick="changeStyle(this.id)" style="width: 30px !important; height: 30px !important; margin-right: 10px; margin-bottom: 5px;" type="button" class="btn btn-primary"></button>
+        <button id="2"  onclick="changeStyle(this.id)" style="width: 30px !important; height: 30px !important; margin-right: 10px; margin-bottom: 5px;" type="button" class="btn btn-primary"></button>
+        <button id="3"  onclick="changeStyle(this.id)" style="width: 30px !important; height: 30px !important; margin-right: 10px; margin-bottom: 5px;" type="button" class="btn btn-primary"></button>
+        <button id="4"  onclick="changeStyle(this.id)" style="width: 30px !important; height: 30px !important; margin-right: 10px; margin-bottom: 5px;" type="button" class="btn btn-primary"></button>
+        <button id="5"  onclick="changeStyle(this.id)" style="width: 30px !important; height: 30px !important; margin-right: 10px; margin-bottom: 5px;" type="button" class="btn btn-primary"></button>
+        
+        <br> 
+        
+        <button id="6"  onclick="changeStyle(this.id)"  style="width: 30px !important; height: 30px !important; margin-right: 10px;" type="button" class="btn btn-primary"></button>
+        <button id="7"  onclick="changeStyle(this.id)"  style="width: 30px !important; height: 30px !important; margin-right: 10px;" type="button" class="btn btn-primary"></button>
+        <button id="8"  onclick="changeStyle(this.id)"  style="width: 30px !important; height: 30px !important; margin-right: 10px;" type="button" class="btn btn-primary"></button>
+        <button id="9"  onclick="changeStyle(this.id)"  style="width: 30px !important; height: 30px !important; margin-right: 10px;" type="button" class="btn btn-primary"></button>
+        <button id="10" onclick="changeStyle(this.id)"  style="width: 30px !important; height: 30px !important; margin-right: 10px;" type="button" class="btn btn-primary"></button>
+
+        <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   Pasillo
+        <br>
+
+        <button id="11" onclick="changeStyle(this.id)" style="width: 30px !important; height: 30px !important; margin-right: 10px; margin-bottom: 5px;" type="button" class="btn btn-primary"></button>
+        <button id="12" onclick="changeStyle(this.id)" style="width: 30px !important; height: 30px !important; margin-right: 10px; margin-bottom: 5px;" type="button" class="btn btn-primary"></button>
+        <button id="13" onclick="changeStyle(this.id)" style="width: 30px !important; height: 30px !important; margin-right: 10px; margin-bottom: 5px;" type="button" class="btn btn-primary"></button>
+        <button id="14" onclick="changeStyle(this.id)" style="width: 30px !important; height: 30px !important; margin-right: 10px; margin-bottom: 5px;" type="button" class="btn btn-primary"></button>
+        <button id="15" onclick="changeStyle(this.id)" style="width: 30px !important; height: 30px !important; margin-right: 10px; margin-bottom: 5px;" type="button" class="btn btn-primary"></button>
+        
+        <br> 
+        
+        <button id="16" onclick="changeStyle(this.id)" style="width: 30px !important; height: 30px !important; margin-right: 10px;" type="button" class="btn btn-primary"></button>
+        <button id="17" onclick="changeStyle(this.id)" style="width: 30px !important; height: 30px !important; margin-right: 10px;" type="button" class="btn btn-primary"></button>
+        <button id="18" onclick="changeStyle(this.id)" style="width: 30px !important; height: 30px !important; margin-right: 10px;" type="button" class="btn btn-primary"></button>
+        <button id="19" onclick="changeStyle(this.id)" style="width: 30px !important; height: 30px !important; margin-right: 10px;" type="button" class="btn btn-primary"></button>
+        <button id="20" onclick="changeStyle(this.id)" style="width: 30px !important; height: 30px !important; margin-right: 10px;" type="button" class="btn btn-primary"></button>
+    </div>
+
+    <input type="radio" id="male" name="gender" value="male">
+    <label for="male">quitar</label><br>
+    <input type="radio" id="female" name="gender" value="female">
+    <label for="female">handicap</label><br>
+    <input type="radio" id="other" name="gender" value="other">
+    <label for="other">preferente</label>
+
+    <script>
+        function changeStyle(id_){
+            document.getElementById(id_).classList.remove("btn-primary")
+            document.getElementById(id_).classList.add("btn-alert")
+        }
+        
+    </script>
+
+</body>
+</html>
