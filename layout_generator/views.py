@@ -3,6 +3,7 @@ from django.http import HttpResponse
 
 from math import floor #Funcion suelo
 from math import ceil #Funcion techo
+import json
 
 def home(request):
 
@@ -10,8 +11,36 @@ def home(request):
 
 def generated_layout(request):
 
+    if request.method =='POST':
+        rows  = request.POST.get('rows')
+        seats = request.POST.get('seats')
+        distance = request.POST.get('distance')
+        hash_table_ = request.POST.get('hashmap')
+
+        
+        
+        if hash_table_:
+            hash_table = json.loads(hash_table_)
+
+
+            print("HASH >>>>>>>>>>>>>>>>>>>>>>>> ", type(hash_table))
+
+        rows     = int(rows)
+        columns  = (int(seats) * 2) + 1
+        distance = int(distance)
+
+    
     #hash_table = {2:[33,22,42,43]}
-    hash_table = {1:[3,0,8,1,6,4],2:[0,3,0,1]}
+    #hash_table = {1:[3,0,8,1,6,4],2:[0,3,0,1]}
+
+    
+    if not hash_table_:
+        print('no hash_')
+        hash_table = {}
+    else:
+        if not hash_table['Handicap_seats']:
+            del hash_table['Handicap_seats']
+
     '''a    
         0 = Not available
         1 = Out of service
@@ -44,10 +73,10 @@ def generated_layout(request):
         # If there is any modification
         if len(hash_table.keys()) > 0:
             # If we have a seat that needs a handicap
-            if 2 in hash_table.keys() and 1 not in hash_table.keys():
+            if 'Handicap_seats' in hash_table.keys() and 'Unavailable_seats' not in hash_table.keys():
                 current_index = []
-                current_index.append(hash_table[2].pop(0))
-                current_index.append(hash_table[2].pop(0))
+                current_index.append(hash_table['Handicap_seats'].pop(0))
+                current_index.append(hash_table['Handicap_seats'].pop(0))
                 while current_index[1] >= block_distance:
                     current_index[1] = current_index[1] - block_distance
                 while current_index[0] >= block_distance:
@@ -59,17 +88,17 @@ def generated_layout(request):
                         matrix[layer][index] = 5
 
             # If there is a handicap any not available seat
-            if 2 in hash_table.keys() and 1 in hash_table.keys():
-                places_not_available = hash_table[1]
+            if 'Handicap_seats' in hash_table.keys() and 'Unavailable_seats' in hash_table.keys():
+                places_not_available = hash_table['Unavailable_seats']
                 replace_numbers(matrix,places_not_available,1)
                 max_matrix = []
                 max_matrix_sum = 0
-                while len(hash_table[2]) > 0:
+                while len(hash_table['Handicap_seats']) > 0:
                     cache_matrix = []
                     current_sum = 0
                     current_index = []
-                    current_index.append(hash_table[2].pop(0)) 
-                    current_index.append(hash_table[2].pop(0)) 
+                    current_index.append(hash_table['Handicap_seats'].pop(0)) 
+                    current_index.append(hash_table['Handicap_seats'].pop(0)) 
                     while current_index[0] >= block_distance:
                         current_index[0] = current_index[0] - block_distance
                     while current_index[1] >= block_distance:
@@ -86,8 +115,8 @@ def generated_layout(request):
                 replace_numbers(matrix,max_matrix,5)
 
             # There is no handicaps but there is not available places
-            if 2 not in hash_table.keys() and 1 in hash_table.keys():
-                places_not_available = hash_table[1]
+            if 'Handicap_seats' not in hash_table.keys() and 'Unavailable_seats' in hash_table.keys():
+                places_not_available = hash_table['Unavailable_seats']
                 replace_numbers(matrix,places_not_available,1)
                 max_matrix = []
                 max_matrix_sum = 0
@@ -115,11 +144,11 @@ def generated_layout(request):
                     matrix[layer][index] = 5
     
     def layout_generator():
-        columns = 4
-        columns += 1
-        rows = 11
+        #columns = 4
+        #columns += 1
+        #rows = 11
         distance_between_seats = 50
-        distance = 100
+        #distance = 100
         new_matrix = create_matrix(columns,rows,distance_between_seats,distance)
         assign_spaces(new_matrix,hash_table,ceil(distance/distance_between_seats))
         print_bus(new_matrix)
@@ -141,19 +170,24 @@ def generated_layout(request):
             z += 1
             dict_[z] = (matrix[x][y])
 
-    print(dict_)
+    print("dictionario es ", dict_)
     
     matrix_width  = 2
     matrix_width  = matrix_width + 1
 
     matrix_height = 6
 
+    columns = int((columns-1)/2)
+
     return render(request, 'layout_generator/calculated_layout.html', {
         #'matrix_height':range(matrix_height),
         #'matrix_width':range(matrix_width)
         'rows':range(rows_),
         'columns':columns_,
-        'matrix_dict':dict_
+        'matrix_dict':dict_,
+        'form_rows': rows,
+        'form_columns': columns,
+        'form_distance': distance
     }
     )
 

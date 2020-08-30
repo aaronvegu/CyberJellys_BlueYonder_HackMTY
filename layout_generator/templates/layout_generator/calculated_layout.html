@@ -19,9 +19,9 @@
     </nav>
     <section class="central-container">
         <div class="sec-one">
-            <p class="ut-1">Your custom space layout will be here shortly...</p>
+            <p class="ut-1">Here you go, use the options bellow to edit it</p>
 
-            <div class="container" style="align-items: center;">
+            <div>
                 {% for key, value in matrix_dict.items %}
                     {% if value == 0 %}
                         <button id={{key}}  onclick="changeStyle(this.id)" style="width: 30px !important; height: 30px !important; margin-right: 10px; margin-bottom: 5px;" type="button" class="btn btn-warning"></button>
@@ -38,6 +38,13 @@
                 {% endfor %}
             </div>
 
+            <input type="radio" id="damaged" name="gender" value="male">
+            <label for="male">Mark damaged or non functional</label><br>
+            <input type="radio" id="preferential" name="gender" value="female">
+            <label for="female">Mark as a preferential seat</label><br>
+
+            <button onclick="setSpecialSeats()" type="button" class="btn btn-dark">Set special seats</button>
+
         </div>
         <div class="sec-two">
             <div class="form">
@@ -46,34 +53,162 @@
                 </p>
             </div>
             <img class="svg-banner" src="{% static 'layout_generator/images/form-banner.svg' %}" alt="City Banner Illustration">
-            <form action="" method="POST">
+            <form action="http://127.0.0.1:8000/calculated_layout" method="post">
                 {% csrf_token %}
+                {{ form }}
                 <div class="top-row">
                     <div class="field-wrap">
                         <label>
                         Rows
                         </label>
-                        <input id="rows" type="number" required autocomplete="off" />
+                        <input value={{form_rows}} name="rows" id="rows" type="number" required autocomplete="off" />
                     </div>
                 
                     <div class="field-wrap">
                         <label>
                         Seats per row
                         </label>
-                        <input id="columns" type="number"required autocomplete="off"/>
+                        <input value={{form_columns}} name="seats" id="seats" type="number"required autocomplete="off"/>
                     </div>
                     </div>
         
-                    <div class="field-wrap">
-                    <label>
-                        Social Distancing Measure (cm)
-                    </label>
-                    <input id="distance" type="number"required autocomplete="off"/>
+                    <div class="top-row">
+                        <div class="field-wrap">
+                            <label>
+                            P. Distance (cm)
+                            </label>
+                            <input value={{form_distance}} name="distance" id="distance" type="number"required autocomplete="off"/>
+                        </div>
+                        <div class="field-wrap">
+                            <label>
+                            Quota (%)
+                            </label>
+                            <input id="quota" type="number"required autocomplete="off"/>
+                        </div>
+                    </div>
+
+                    <div class="top-row">
+                        <div class="field-wrap">
+                            <input name="hashmap" id="hashmap" required autocomplete="off"/>
+                        </div>
+                    </div>
+    
                     <button class="button button-block">Send</button>
                 </div>
             </form>
         </div>
     </section>
+
+    <script>
+        function changeStyle(id){
+            document.getElementById(id).className = '';
+            document.getElementById(id).classList.add('btn');
+
+            if (document.getElementById('damaged').checked){
+                document.getElementById(id).classList.add('btn-danger');
+            } else if (document.getElementById('preferential').checked){
+                document.getElementById(id).classList.add('btn-success');
+            } 
+        }
+
+        function setSpecialSeats() {
+            var inputs = document.getElementsByClassName('btn-danger');
+
+            var arrDamaged = [];
+
+            for (var i=0; i< inputs.length; i++ ) {
+
+                var spaces_for_row = ({{form_columns}} * 2) + 1;
+                
+                var coordinate1 = (inputs[i].id)/spaces_for_row
+
+                
+
+                if (Number.isInteger(coordinate1)){
+                    coordinate1 = coordinate1 - 1;
+                } else {
+                    coordinate1 = Math.floor(coordinate1)
+                }
+
+                
+
+                coordinate2 = (inputs[i].id)
+
+                while (true){
+                    if (coordinate2 > 5){
+                        coordinate2 = coordinate2 - 5
+                    } else if (coordinate2 == 5){
+                        coordinate2 = coordinate2 - 1;
+                        break;
+                    } else if (coordinate2 < 5) {
+                        coordinate2 = coordinate2 - 1;
+                        break;
+                    }
+                } 
+
+                console.log('CoordinateY ' + coordinate1 + ' CoordinateX ' + coordinate2 + ' ID ' + (inputs[i].id))
+                arrDamaged.push(coordinate1,coordinate2)
+                           
+            }
+
+            console.log(arrDamaged); 
+
+            var damagedCoordinates = arrDamaged.toString();
+            var dict = {};  
+            dict['damaged'] = damagedCoordinates;
+
+
+
+            var inputs = document.getElementsByClassName('btn-success');
+
+            var arrDamaged = [];
+            
+            for (var i=0; i< inputs.length; i++ ) {
+
+            var spaces_for_row = ({{form_columns}} * 2) + 1;
+
+            var coordinate1 = (inputs[i].id)/spaces_for_row
+
+
+
+            if (Number.isInteger(coordinate1)){
+                coordinate1 = coordinate1 - 1;
+            } else {
+                coordinate1 = Math.floor(coordinate1)
+            }
+
+
+
+            coordinate2 = (inputs[i].id)
+
+            while (true){
+                if (coordinate2 > 5){
+                    coordinate2 = coordinate2 - 5
+                } else if (coordinate2 == 5){
+                    coordinate2 = coordinate2 - 1;
+                    break;
+                } else if (coordinate2 < 5) {
+                    coordinate2 = coordinate2 - 1;
+                    break;
+                }
+            } 
+
+            console.log('CoordinateY ' + coordinate1 + ' CoordinateX ' + coordinate2 + ' ID ' + (inputs[i].id))
+            arrDamaged.push(coordinate1,coordinate2)
+                    
+            }
+
+            console.log(arrDamaged); 
+
+            var damagedCoordinates = arrDamaged.toString();
+
+            dict['special'] = damagedCoordinates;
+            console.log(dict); 
+
+            document.getElementById("hashmap").value = ('{"Unavailable_seats":[' + dict.damaged + '],"Handicap_seats":[' + dict.special + "]}" );
+
+        }
+    </script>
 </body>
 </html>
 

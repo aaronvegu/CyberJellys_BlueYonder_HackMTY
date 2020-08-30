@@ -30,7 +30,7 @@
                 </p>
             </div>
             <img class="svg-banner" src="{% static 'layout_generator/images/form-banner.svg' %}" alt="City Banner Illustration">
-            <form action="" method="post">
+            <form action="http://127.0.0.1:8000/calculated_layout" method="post">
                 {% csrf_token %}
                 {{ form }}
                 <div class="top-row">
@@ -38,22 +38,32 @@
                         <label>
                         Rows
                         </label>
-                        <input id="rows" type="number" required autocomplete="off" />
+                        <input name="rows" id="rows" type="number" required autocomplete="off" />
                     </div>
                 
                     <div class="field-wrap">
                         <label>
                         Seats per row
                         </label>
-                        <input id="columns" type="number"required autocomplete="off"/>
+                        <input name="seats" id="seats" type="number"required autocomplete="off"/>
                     </div>
                     </div>
         
-                    <div class="field-wrap">
-                    <label>
-                        Social Distancing Measure (cm)
-                    </label>
-                    <input id="distance" type="number"required autocomplete="off"/>
+                    <div class="top-row">
+                        <div class="field-wrap">
+                            <label>
+                            P. Distance (cm)
+                            </label>
+                            <input name="distance" id="distance" type="number"required autocomplete="off"/>
+                        </div>
+                        <div class="field-wrap">
+                            <label>
+                            Quota (%)
+                            </label>
+                            <input id="quota" type="number"required autocomplete="off"/>
+                        </div>
+                    </div>
+    
                     <button class="button button-block">Send</button>
                 </div>
             </form>
