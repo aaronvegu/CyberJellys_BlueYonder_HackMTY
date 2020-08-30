@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'layout_generator/css/form-styles.css' %}" type="text/css">
+
+    <title>Page Title</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <title>Space Management - HackMTY</title>
+</head>
+<body>
+    <nav class="navbar navbar-light bg-light">
+        <a class="navbar-brand" href="#">
+            <span class="nav-title">Space Management App</span>
+        </a>
+    </nav>
+    <section class="central-container">
+        <div class="sec-one">
+            <p class="ut-1">Your custom space layout will be here shortly...</p>
+            <img class="svg-banner" src="{% static 'layout_generator/images/form-banner-2.svg' %}" alt="Model Analytics Banner">
+        </div>
+        <div class="sec-two">
+            <div class="form">
+                <p>
+                    Our algorithm works on the specific measures of your vehicle model, to generate a safe, inclusive and effective space distribution plan.
+                </p>
+            </div>
+            <img class="svg-banner" src="{% static 'layout_generator/images/form-banner.svg' %}" alt="City Banner Illustration">
+            <form action="" method="post">
+                {% csrf_token %}
+                {{ form }}
+                <div class="top-row">
+                    <div class="field-wrap">
+                        <label>
+                        Rows
+                        </label>
+                        <input id="rows" type="number" required autocomplete="off" />
+                    </div>
+                
+                    <div class="field-wrap">
+                        <label>
+                        Seats per row
+                        </label>
+                        <input id="columns" type="number"required autocomplete="off"/>
+                    </div>
+                    </div>
+        
+                    <div class="field-wrap">
+                    <label>
+                        Social Distancing Measure (cm)
+                    </label>
+                    <input id="distance" type="number"required autocomplete="off"/>
+                    <button class="button button-block">Send</button>
+                </div>
+            </form>
+        </div>
+    </section>
+</body>
+</html>
