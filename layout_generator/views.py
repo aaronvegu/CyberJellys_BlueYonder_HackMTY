@@ -16,6 +16,10 @@ def generated_layout(request):
         seats = request.POST.get('seats')
         distance = request.POST.get('distance')
         hash_table_ = request.POST.get('hashmap')
+        quota = request.POST.get('quota')
+
+        print("QUOTA >>>>>>>><", quota)
+
 
         
         
@@ -142,6 +146,7 @@ def generated_layout(request):
             for layer in range(0,len(matrix),block_distance):
                 for index in range(0,len(matrix[0]),block_distance):
                     matrix[layer][index] = 5
+
     
     def layout_generator():
         #columns = 4
@@ -149,6 +154,10 @@ def generated_layout(request):
         #rows = 11
         distance_between_seats = 50
         #distance = 100
+
+        
+        cuote = quota
+        print("BANDERA BANDERA NBASDA", cuote)
         new_matrix = create_matrix(columns,rows,distance_between_seats,distance)
         assign_spaces(new_matrix,hash_table,ceil(distance/distance_between_seats))
         print_bus(new_matrix)

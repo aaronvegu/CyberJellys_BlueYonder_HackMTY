@@ -19,33 +19,55 @@
     </nav>
     <section class="central-container">
         <div class="sec-one">
-            <p class="ut-1">Here you go, use the options bellow to edit it</p>
 
-            <div>
-                {% for key, value in matrix_dict.items %}
-                    {% if value == 0 %}
-                        <button id={{key}}  onclick="changeStyle(this.id)" style="width: 30px !important; height: 30px !important; margin-right: 10px; margin-bottom: 5px;" type="button" class="btn btn-warning"></button>
-                    {% elif value == 1 %}
-                        <button id={{key}}  onclick="changeStyle(this.id)" style="width: 30px !important; height: 30px !important; margin-right: 10px; margin-bottom: 5px;" type="button" class="btn btn-danger"></button>
-                    {% elif value == 5 %}
-                        <button id={{key}}  onclick="changeStyle(this.id)" style="width: 30px !important; height: 30px !important; margin-right: 10px; margin-bottom: 5px;" type="button" class="btn btn-primary"></button>
-                    {% endif %}
-            
-                    {% if forloop.counter|divisibleby:columns %}
-                    <br>
-                    {% endif %}
-            
-                {% endfor %}
+            <div class="bg">
+                 <p>Complete! Your new layout is ready to use:</p>
+                 <div class="layout-container">
+                     {% for key, value in matrix_dict.items %}
+                         {% if value == 0 %}
+                             <button id={{key}}  onclick="changeStyle(this.id)" style="width: 30px !important; height: 30px !important; margin-right: 10px; margin-bottom: 5px;" type="button" class="ut-2 btn btn-warning"></button>
+                         {% elif value == 1 %}
+                             <button id={{key}}  onclick="changeStyle(this.id)" style="width: 30px !important; height: 30px !important; margin-right: 10px; margin-bottom: 5px;" type="button" class="btn btn-danger"></button>
+                         {% elif value == 5 %}
+                             <button id={{key}}  onclick="changeStyle(this.id)" style="width: 30px !important; height: 30px !important; margin-right: 10px; margin-bottom: 5px;" type="button" class="btn btn-primary"></button>
+                         {% endif %}
+                 
+                         {% if forloop.counter|divisibleby:columns %}
+                         <br>
+                         {% endif %}
+                 
+                     {% endfor %}
+                 </div>
+                 <div class="indicators">
+                     <div>
+                         <button style="width: 30px !important; height: 30px !important; margin-right: 10px; margin-bottom: 5px;" type="button" class="btn btn-primary"></button>
+                         Available seats
+                     </div>
+                     <div>
+                         <button style="width: 30px !important; height: 30px !important; margin-right: 10px; margin-bottom: 5px;" type="button" class="btn btn-danger"></button>
+                         Unusable or damaged seats
+                     </div>
+                     <div>
+                         <button style="width: 30px !important; height: 30px !important; margin-right: 10px; margin-bottom: 5px;" type="button" class="ut-2 btn btn-warning"></button>
+                         Seats closed due to healthy distance
+                     </div>
+                 </div>
+            </div>
+ 
+            <div class="special-buttons">
+                <div class="input-case">
+                    <input class="checkmark" type="radio" id="damaged" name="gender" value="male">
+                    <label for="male">Mark damaged or non functional</label><br>
+                </div>
+                <div class="input-case">
+                    <input class="checkmark" type="radio" id="preferential" name="gender" value="male">
+                    <label for="male">Mark has preferential</label><br>
+                </div>
+
+                <button onclick="setSpecialSeats()" type="button" class="btn btn-dark">Set special seats</button>
             </div>
 
-            <input type="radio" id="damaged" name="gender" value="male">
-            <label for="male">Mark damaged or non functional</label><br>
-            <input type="radio" id="preferential" name="gender" value="female">
-            <label for="female">Mark as a preferential seat</label><br>
-
-            <button onclick="setSpecialSeats()" type="button" class="btn btn-dark">Set special seats</button>
-
-        </div>
+         </div>
         <div class="sec-two">
             <div class="form">
                 <p>
@@ -61,14 +83,14 @@
                         <label>
                         Rows
                         </label>
-                        <input value={{form_rows}} name="rows" id="rows" type="number" required autocomplete="off" />
+                        <input class="special-input" value={{form_rows}} name="rows" id="rows" type="number" required autocomplete="off" />
                     </div>
                 
                     <div class="field-wrap">
                         <label>
                         Seats per row
                         </label>
-                        <input value={{form_columns}} name="seats" id="seats" type="number"required autocomplete="off"/>
+                        <input class="special-input" value={{form_columns}} name="seats" id="seats" type="number"required autocomplete="off"/>
                     </div>
                     </div>
         
@@ -77,19 +99,19 @@
                             <label>
                             P. Distance (cm)
                             </label>
-                            <input value={{form_distance}} name="distance" id="distance" type="number"required autocomplete="off"/>
+                            <input class="special-input" value={{form_distance}} name="distance" id="distance" type="number"required autocomplete="off"/>
                         </div>
                         <div class="field-wrap">
                             <label>
                             Quota (%)
                             </label>
-                            <input id="quota" type="number"required autocomplete="off"/>
+                            <input class="special-input" id="quota" type="number"required autocomplete="off"/>
                         </div>
                     </div>
 
-                    <div class="top-row">
+                    <div class="disappear top-row">
                         <div class="field-wrap">
-                            <input name="hashmap" id="hashmap" required autocomplete="off"/>
+                            <input class="special-input" name="hashmap" id="hashmap" required autocomplete="off"/>
                         </div>
                     </div>
     

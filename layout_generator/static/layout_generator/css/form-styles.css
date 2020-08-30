@@ -4,9 +4,25 @@
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
 }
+.check {
+    width: 100px;
+    margin-top: 50px;
+}
 .ut-1 {
     font-size: 18px;
     padding: 10px 5px;
+}
+.ut-2 {
+    background-color: rgba(244, 143, 4, 0.25) !important;
+}
+.indicators {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+.layout-container {
+    padding: 5px 0px 5px 7px;
+    border: solid #000000 3px;
 }
 .nav-title {
     color: #F48F00;
@@ -20,14 +36,14 @@
 .sec-one {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
+    align-content: center;
     width: 50%;
     height: 95vh;
 }
 .sec-one p {
-    margin-top: 50px;
     font-weight: 700;
+    margin-bottom: 30px;
 }
 .sec-two {
     display: flex;
@@ -53,6 +69,15 @@ a {
 a:hover {
     color: #707077;
     text-decoration: none;
+}
+.bg {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: rgba(255, 242, 224, 0.9);
+    padding: 30px;
+    margin-top: 60px;
+    border: dotted #F48F00 3px;
 }
 .form {
     background: rgba(255, 242, 224, 0.9);
@@ -124,7 +149,7 @@ label .req.active {
 label.highlight {
     color: #ffffff;
 }
-input, textarea {
+.special-input {
     font-size: 22px;
     display: block;
     width: 100%;
@@ -198,3 +223,27 @@ textarea {
   .appear {
       display: block;
   }
+  .special-buttons {
+      display: flex;
+      flex-direction: column;
+      margin: 30px;
+  }
+  .special-buttons input {
+      margin: 10px;
+  }
+  .special-buttons button {
+      margin-top: 20px;
+      text-transform: uppercase;
+    letter-spacing: 0.1em;
+    background: #F48F00;
+    color: #ffffff;
+    transition: all.5s ease;
+    -webkit-appearance: none;
+    border: 0;
+    outline: none;
+    border-radius: 0;
+  }
+  .special-buttons button:hover {
+    background: #707077;
+}
+  
